@@ -1,6 +1,6 @@
 # Referral Rescue: The Information Journey
 
-A small, static educational game for John Lemuel Dalisay’s Health Information Management talk at the Regional LHS ML Info 1 Summit. All people and facilities are fictional. **This does not measure official LHS maturity, certify privacy compliance, or provide clinical guidance.**
+A small, static educational game for a Health Information Management talk at the Regional LHS ML Info 1 Summit. All people and facilities are fictional. **This does not measure official LHS maturity, certify privacy compliance, or provide clinical guidance.**
 
 ## Play and edit
 
@@ -16,26 +16,30 @@ The game has Quick Play (six decisions), Live Demo (three decisions, explicit re
 
 ## Publish from this repository
 
-The game is prepared on a review branch. After reviewing and merging the pull request into `main`:
+The game publishes automatically whenever changes reach `main`. The deployment workflow is `.github/workflows/deploy-pages.yml` and can also be started manually from the repository's **Actions** tab.
 
-1. In `jldalisay95/referral-rescue`, choose **Settings → Pages → Build and deployment → Deploy from a branch**. Select `main` and `/ (root)`, then save.
-2. Wait for Pages to publish, then visit `https://jldalisay95.github.io/referral-rescue/`. All asset URLs are relative and work under this project subpath.
-3. Test Quick Play, Live Demo, Practice, and About on a phone and a projected laptop before using the URL or a QR code at an event.
+The first time, open `jldalisay95/referral-rescue`, choose **Settings -> Pages**, and set **Build and deployment -> Source** to **GitHub Actions**. After the workflow completes, visit:
 
-Merging the pull request and enabling Pages are separate publishing steps. Neither has been performed in this draft. GitHub's current instructions: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+`https://jldalisay95.github.io/referral-rescue/`
+
+All asset URLs are relative and work under this project subpath. Before sharing the URL or a QR code at an event, smoke-test Quick Play, Live Demo, Practice, and About on a phone and a projected laptop. Deployment status and the published URL are shown in the workflow run and Pages settings.
+
+For an offline room, keep this folder on the facilitator laptop and serve it locally with the command above, or use the paper fallback in `docs/FACILITATOR.md`.
+
+GitHub's Pages setup instructions: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
 If reusing the game in a repository named `USERNAME.github.io`, place these files at its root and publish from `main`/`(root)`; its default URL will be `https://USERNAME.github.io/`.
 
 ## Offline and accessibility
 
-The core app has no remote dependencies. Once the files are present locally, it can be served without external connectivity. It does **not** install a service worker, so a first visit to the hosted URL still needs connectivity and offline caching is browser dependent. For a no-internet room, keep this folder on the facilitator laptop and serve it locally, or use the paper fallback in `docs/FACILITATOR.md`.
+The core app has no remote dependencies. Once the files are present locally, it can be served without external connectivity. It does **not** install a service worker, so a first visit to the hosted URL still needs connectivity and offline caching is browser dependent.
 
-Native buttons, visible focus, live feedback, text labels, reduced-motion CSS, and touch-friendly controls support accessibility. This is an implementation target, not a claim of formal WCAG certification. Test with your audience’s devices and assistive technologies before a public event.
+Native buttons, visible focus, live feedback, text labels, reduced-motion CSS, and touch-friendly controls support accessibility. This is an implementation target, not a claim of formal WCAG certification. Test with your audience's devices and assistive technologies before a public event.
 
 ## Documents
 
-- `docs/FACILITATOR.md` — live run sheet, speaking lines, and paper fallback.
-- `docs/EVIDENCE.md` — source mapping, design rationale, and limits.
-- `docs/QA.md` — performed checks and remaining gaps.
+- `docs/FACILITATOR.md` - live run sheet, speaking lines, and paper fallback.
+- `docs/EVIDENCE.md` - source mapping, design rationale, and limits.
+- `docs/QA.md` - performed checks and remaining gaps.
 
 Code and original visual design: MIT license (`LICENSE`). Scenario text is supplied for educational adaptation under the same license. Source material linked in the evidence notes retains its own copyright.
