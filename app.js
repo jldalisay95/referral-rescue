@@ -3,11 +3,39 @@ import {cases} from './scenarios.js';
 const app=document.querySelector('#app');
 const dialog=document.querySelector('#aboutDialog');
 const storageKey='referral-rescue-v1';
+const analyticsStorageKey='referral-rescue-analytics-v1';
+const analyticsId='G-64N76HDTT7';
+const analyticsBanner=document.querySelector('#analyticsBanner');
+const allowAnalytics=document.querySelector('#allowAnalytics');
+const declineAnalytics=document.querySelector('#declineAnalytics');
+const analyticsSettings=document.querySelector('#analyticsSettings');
 const stages=['Capture','Check','Protect','Exchange','Return','Use'];
 const dimensions=['Continuity','Data quality','Privacy','Local usefulness'];
 const icons=['↗','◇','◈','▥'];
 let saved={enabled:false,completed:[]};
 try { const s=JSON.parse(localStorage.getItem(storageKey)||'null'); if(s?.enabled) saved={enabled:true,completed:Array.isArray(s.completed)?s.completed:[]}; } catch {}
+let analyticsConsent='unknown';
+let analyticsLoaded=false;
+try { const consent=localStorage.getItem(analyticsStorageKey); if(consent==='accepted'||consent==='declined') analyticsConsent=consent; } catch {}
+function persistAnalyticsConsent(){try{if(analyticsConsent==='unknown')localStorage.removeItem(analyticsStorageKey);else localStorage.setItem(analyticsStorageKey,analyticsConsent)}catch{}}
+function showAnalyticsBanner(show){if(analyticsBanner) analyticsBanner.hidden=!show}
+function loadAnalytics(){
+  if(analyticsLoaded||analyticsConsent!=='accepted')return;
+  try{
+    const host=globalThis.window||globalThis;
+    host.dataLayer=host.dataLayer||[];
+    host.gtag=function(){host.dataLayer.push(arguments)};
+    host.gtag('js',new Date());
+    host.gtag('config',analyticsId);
+    if(!document.createElement||!document.head?.appendChild)return;
+    const script=document.createElement('script');
+    script.async=true;
+    script.src=`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`;
+    document.head.appendChild(script);
+    analyticsLoaded=true;
+  }catch{}
+}
+function setAnalyticsConsent(value){analyticsConsent=value;persistAnalyticsConsent();showAnalyticsBanner(false);if(value==='accepted')loadAnalytics()}
 let state={screen:'home',mode:'quick',caseIndex:0,stepIndex:0,selected:null,revealed:false,hint:false,metrics:[2,2,2,2],history:[],completedCases:[],practiceIndex:0};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const currentCase=()=>cases[state.caseIndex];
@@ -42,4 +70,9 @@ document.querySelector('#closeAbout').addEventListener('click',()=>dialog.close(
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 document.querySelector('#saveToggle').addEventListener('change',e=>{saved.enabled=e.target.checked;persist()});
 document.querySelector('#resetProgress').addEventListener('click',()=>{saved.completed=[];persist();document.querySelector('#resetProgress').textContent='Progress reset'});
+allowAnalytics?.addEventListener('click',()=>setAnalyticsConsent('accepted'));
+declineAnalytics?.addEventListener('click',()=>setAnalyticsConsent('declined'));
+analyticsSettings?.addEventListener('click',()=>{dialog.close();analyticsConsent='unknown';persistAnalyticsConsent();showAnalyticsBanner(true)});
+if(analyticsConsent==='accepted')loadAnalytics();
+else if(analyticsConsent==='unknown')showAnalyticsBanner(true);
 render();

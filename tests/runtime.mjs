@@ -1,12 +1,30 @@
 import assert from 'node:assert/strict';
 const listeners=new Map();
-function el(){return {innerHTML:'',checked:false,textContent:'',classList:{toggle(){}},addEventListener(n,fn){this['on'+n]=fn},querySelector(){return {focus(){},scrollIntoView(){}}},showModal(){},close(){}}}
-const app=el(),about=el(),save=el(),reset=el(),close=el();
-const elements={'#app':app,'#aboutDialog':about,'#aboutBtn':el(),'#closeAbout':close,'#saveToggle':save,'#resetProgress':reset};
+function el(){return {innerHTML:'',checked:false,hidden:false,textContent:'',classList:{toggle(){}},addEventListener(n,fn){this['on'+n]=fn},querySelector(){return {focus(){},scrollIntoView(){}}},showModal(){},close(){}}}
+const app=el(),about=el(),save=el(),reset=el(),close=el(),analyticsBanner=el(),allowAnalytics=el(),declineAnalytics=el(),analyticsSettings=el();
+const analyticsScripts=[];
+const elements={'#app':app,'#aboutDialog':about,'#aboutBtn':el(),'#closeAbout':close,'#saveToggle':save,'#resetProgress':reset,'#analyticsBanner':analyticsBanner,'#allowAnalytics':allowAnalytics,'#declineAnalytics':declineAnalytics,'#analyticsSettings':analyticsSettings};
+const stored=new Map();
 globalThis.document={querySelector(s){return elements[s]??el()},body:{classList:{toggle(){}}}};
+globalThis.document.createElement=tag=>({tagName:tag,async:false,src:''});
+globalThis.document.head={appendChild(node){analyticsScripts.push(node)}};
 globalThis.requestAnimationFrame=fn=>fn();
-globalThis.localStorage={getItem(){return null},setItem(){},removeItem(){}};
+globalThis.localStorage={getItem(key){return stored.get(key)??null},setItem(key,value){stored.set(key,String(value))},removeItem(key){stored.delete(key)}};
 await import('../app.js');
+assert.equal(analyticsScripts.length,0);
+assert.equal(analyticsBanner.hidden,false);
+declineAnalytics.onclick();
+assert.equal(stored.get('referral-rescue-analytics-v1'),'declined');
+assert.equal(analyticsScripts.length,0);
+analyticsSettings.onclick();
+assert.equal(analyticsBanner.hidden,false);
+allowAnalytics.onclick();
+assert.equal(stored.get('referral-rescue-analytics-v1'),'accepted');
+assert.equal(analyticsScripts.length,1);
+assert.match(analyticsScripts[0].src,/googletagmanager\.com\/gtag\/js\?id=G-64N76HDTT7/);
+assert.equal(globalThis.dataLayer.length,2);
+allowAnalytics.onclick();
+assert.equal(analyticsScripts.length,1);
 function click(action,other={}){app.onclick({target:{closest(){return {dataset:{action,...other}}}}})}
 assert.match(app.innerHTML,/Quick play/);
 for(const mode of ['quick','live','practice']){

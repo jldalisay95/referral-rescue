@@ -1,5 +1,10 @@
 import {cases} from '../scenarios.js';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.match(html,/googletagmanager\.com/);
+assert.match(html,/google-analytics\.com/);
+assert.doesNotMatch(html,/<script[^>]+googletagmanager/);
 assert.equal(cases.length,3);
 for(const c of cases){
  assert.ok(c.id&&c.title&&c.role&&c.intro&&c.debrief);

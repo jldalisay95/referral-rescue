@@ -12,7 +12,7 @@ python3 -m http.server 8000 --directory .
 
 Visit `http://localhost:8000/` from this folder. There are no dependencies or build commands. Edit `scenarios.js` to change cases, choices, and feedback; edit `styles.css` for appearance. Each choice carries `good`, `feedback`, and a four-number `delta` for the illustrative continuity, data quality, privacy, and usefulness indicators. Keep at least one `good:true` choice per step. `tests/validate.mjs` checks structure and branches with `node tests/validate.mjs`.
 
-The game has Quick Play (six decisions), Live Demo (three decisions, explicit reveal), and Practice (three six-decision cases). Wrong choices have an explanation and a retry option in solo modes. The application does not request names or patient data. Progress saving is off by default; opting in saves only completed case IDs on this device. The app makes no game API calls and uses no analytics, ads, remote fonts, or external assets. Outbound source links in About are opened only if selected. Hosting providers may log visits independently.
+The game has Quick Play (six decisions), Live Demo (three decisions, explicit reveal), and Practice (three six-decision cases). Wrong choices have an explanation and a retry option in solo modes. The application does not request names or patient data. Progress saving is off by default; opting in saves only completed case IDs on this device. Optional Google Analytics is page-view-only and loads only after visitor consent; it does not receive patient data or gameplay details. The app uses no ads, remote fonts, or external game assets. Outbound source links in About are opened only if selected. Hosting providers may log visits independently.
 
 ## Publish from this repository
 
@@ -32,7 +32,7 @@ If reusing the game in a repository named `USERNAME.github.io`, place these file
 
 ## Offline and accessibility
 
-The core app has no remote dependencies. Once the files are present locally, it can be served without external connectivity. It does **not** install a service worker, so a first visit to the hosted URL still needs connectivity and offline caching is browser dependent.
+The core app has no required remote dependencies. Once the files are present locally, it can be served without external connectivity. Analytics is optional and disabled unless a visitor explicitly allows it. It does **not** install a service worker, so a first visit to the hosted URL still needs connectivity and offline caching is browser dependent.
 
 Native buttons, visible focus, live feedback, text labels, reduced-motion CSS, and touch-friendly controls support accessibility. This is an implementation target, not a claim of formal WCAG certification. Test with your audience's devices and assistive technologies before a public event.
 
