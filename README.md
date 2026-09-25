@@ -38,7 +38,7 @@ The existing Firebase project must have Anonymous Authentication and Realtime Da
 - `FIREBASE_PROJECT_ID` - the Firebase project ID.
 - `FIREBASE_SERVICE_ACCOUNT` - a service-account JSON used only by the backend deployment workflow.
 
-The Pages workflow injects the web configuration into `firebase-runtime-config.js` only in the deployment artifact. The Firebase workflow deploys `functions/` and `database.rules.json`. Copy `.firebaserc.example` to `.firebaserc` for local Firebase CLI use; `.firebaserc` is ignored and must not be committed.
+The Pages workflow injects the web configuration into `firebase-runtime-config.js` only in the deployment artifact. The Firebase workflow deploys `functions/` and `database.rules.json` once the project and service-account secrets exist; until then, that workflow is skipped and Team Quest shows a configuration message. Copy `.firebaserc.example` to `.firebaserc` for local Firebase CLI use; `.firebaserc` is ignored and must not be committed.
 
 If reusing the game in a repository named `USERNAME.github.io`, place these files at its root and publish from `main`/`(root)`; its default URL will be `https://USERNAME.github.io/`.
 

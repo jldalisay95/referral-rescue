@@ -16,6 +16,7 @@ permissions:
 
 jobs:
   deploy:
+    if: ${{ secrets.FIREBASE_PROJECT_ID != '' && secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
