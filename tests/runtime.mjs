@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 const listeners=new Map();
-function el(){return {innerHTML:'',checked:false,hidden:false,textContent:'',classList:{toggle(){}},addEventListener(n,fn){this['on'+n]=fn},querySelector(){return {focus(){},scrollIntoView(){}}},showModal(){},close(){}}}
+function el(){return {innerHTML:'',checked:false,hidden:false,textContent:'',classList:{toggle(){}},addEventListener(n,fn){const key='on'+n;const previous=this[key];this[key]=previous?event=>{previous(event);fn(event)}:fn},querySelector(){return {focus(){},scrollIntoView(){}}},showModal(){},close(){}}}
 const app=el(),about=el(),save=el(),reset=el(),close=el(),analyticsBanner=el(),allowAnalytics=el(),declineAnalytics=el(),analyticsSettings=el();
 const analyticsScripts=[];
 const elements={'#app':app,'#aboutDialog':about,'#aboutBtn':el(),'#closeAbout':close,'#saveToggle':save,'#resetProgress':reset,'#analyticsBanner':analyticsBanner,'#allowAnalytics':allowAnalytics,'#declineAnalytics':declineAnalytics,'#analyticsSettings':analyticsSettings};

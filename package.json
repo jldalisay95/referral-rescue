@@ -1,1 +1,1 @@
-{"name":"referral-rescue","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node tests/validate.mjs && node tests/runtime.mjs"}}
+{"name":"referral-rescue","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node tests/validate.mjs && node tests/runtime.mjs && node tests/quest.mjs"}}

@@ -27,6 +27,14 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Inject Firebase web configuration
+        env:
+          FIREBASE_WEB_CONFIG: ${{ secrets.FIREBASE_WEB_CONFIG }}
+        run: |
+          if [ -n "$FIREBASE_WEB_CONFIG" ]; then
+            printf 'window.__FIREBASE_CONFIG__ = %s;\n' "$FIREBASE_WEB_CONFIG" > firebase-runtime-config.js
+          fi
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:

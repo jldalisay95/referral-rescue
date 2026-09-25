@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "sessions": {
+      "$sessionId": {
+        ".read": "auth != null && data.exists() && data.child('expiresAt').val() > now",
+        ".write": false
+      }
+    }
+  }
+}

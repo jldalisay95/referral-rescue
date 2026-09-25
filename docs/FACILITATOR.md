@@ -2,6 +2,12 @@
 
 **Best transition:** After the deck’s OpenHIE information-flow explanation and at the “Can your table keep Ana’s referral intact?” activity (slide 22 in the 60-minute deck). Use the game as a compact alternative to the card activity, or keep the card activity and share Quick Play afterward. The screen is an educational simulation, not a live exchange.
 
+## Team Quest
+
+Use **Team Quest** when participants have separate devices and the Firebase backend has been configured. Create a room, choose Individual or Team scoring, select 6, 12, or 18 questions, and project the six-character code. Participants join without entering names; Team mode accepts an optional team name.
+
+The host starts each question, waits for answers, reveals the preferred route and explanation, then advances. Scores combine correctness with a modest response-time bonus. The final scorecard ranks players or teams and can be printed. Scores are educational feedback only, not a clinical, compliance, or LHS maturity assessment. Rooms expire after 24 hours.
+
 ## 30-second introduction
 
 “Earlier we met Ana, whose information can break at each handoff. Let’s put that journey on screen. You are the referral team. Your job is to keep one trusted story moving from the RHU to the receiving service and back. We will make three choices together. No speed points: tell me why your choice keeps the next team able to act.”
