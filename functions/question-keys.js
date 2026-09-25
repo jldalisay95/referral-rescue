@@ -1,4 +1,5 @@
-// Authoritative answer keys stay in Cloud Functions and are never sent to players.
+// Test copy of the authoritative answer keys. The deployed copy stays in the
+// Supabase Edge Function and is never sent to participants before reveal.
 const explanations={
  'ana-capture':'Verify the right record while context is available, then make a traceable correction.',
  'ana-check':'A concise, purposeful referral gives the next team enough context to act.',

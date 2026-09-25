@@ -4,7 +4,7 @@
 
 ## Team Quest
 
-Use **Team Quest** when participants have separate devices and the Firebase backend has been configured. Create a room, choose Individual or Team scoring, select 6, 12, or 18 questions, and project the six-character code. Participants join without entering names; Team mode accepts an optional team name.
+Use **Team Quest** when participants have separate devices and the Supabase backend has been configured. Create a room, choose Individual or Team scoring, select 6, 12, or 18 questions, and project the six-character code. Participants join without entering names; Team mode accepts an optional team name.
 
 The host starts each question, waits for answers, reveals the preferred route and explanation, then advances. Scores combine correctness with a modest response-time bonus. The final scorecard ranks players or teams and can be printed. Scores are educational feedback only, not a clinical, compliance, or LHS maturity assessment. Rooms expire after 24 hours.
 

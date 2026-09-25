@@ -27,12 +27,13 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Inject Firebase web configuration
+      - name: Inject Supabase browser configuration
         env:
-          FIREBASE_WEB_CONFIG: ${{ secrets.FIREBASE_WEB_CONFIG }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          if [ -n "$FIREBASE_WEB_CONFIG" ]; then
-            printf 'window.__FIREBASE_CONFIG__ = %s;\n' "$FIREBASE_WEB_CONFIG" > firebase-runtime-config.js
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
+            node -e "const fs=require('fs'); const out='window.__SUPABASE_CONFIG__ = '+JSON.stringify({url:process.env.SUPABASE_URL,anonKey:process.env.SUPABASE_ANON_KEY})+';\\n'; fs.writeFileSync('supabase-runtime-config.js',out)"
           fi
 
       - name: Upload site artifact
